@@ -6,7 +6,7 @@ import express from 'express'
 import { Liquid } from 'liquidjs';
 
 
-console.log('Hieronder moet je waarschijnlijk nog wat veranderen')
+
 // Doe een fetch naar de data die je nodig hebt
 // const apiResponse = await fetch('...')
 
@@ -33,11 +33,18 @@ app.engine('liquid', engine.express());
 // Let op: de browser kan deze bestanden niet rechtstreeks laden (zoals voorheen met HTML bestanden)
 app.set('views', './views')
 
+const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story`);
+const storyResponseJSON = await storyResponse.json();
+
+const buddyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_buddy`);
+const buddyResponseJSON = await buddyResponse.json();
+
 // Maak een GET route voor de index (meestal doe je dit in de root, als /)
 app.get('/', async function (request, response) {
    // Render index.liquid uit de Views map
    // Geef hier eventueel data aan mee
-   response.render('index.liquid')
+
+   response.render('index.liquid', {story: storyResponseJSON.data}) 
 })
 
 app.get('/story', async function (request, response) {

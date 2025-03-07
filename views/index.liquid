@@ -8,20 +8,34 @@
 </head>
 
 <body>
+
+    <h1>All stories</h1>
+
+    <label>
+        <input type="search" role="searchbox" placeholder="search for stories">
+        <button>[SVG]</button>
+    </label>
+
+    <details>sorting</details>
+    <details>language</details>
+    <details>season</details>
+    <details>Animal</details>
     <main>
-        <h1>All stories</h1>
-
-        <label>
-            <input type="search" role="searchbox" placeholder="search for stories">
-            <button>[SVG]</button>
-        </label>
-
-        <details>sorting</details>
-        <details>language</details>
-        <details>season</details>
-        <details>Animal</details>
+        <ul>
+            {% for story in story %}
+            <li>
+                <div>
+                    <h1>{{ story.title }}</h1>
+                    <p>{{ story.summary }}</p>
+                    {% if story.audio %}
+                    <audio controls>
+                        <source {{ story.audio }}>
+                            {% else %} 
+                            <p>null</p>
+                    </audio>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </li>
+        </ul>
     </main>
-
-</body>
-
-</html>
