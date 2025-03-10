@@ -34,17 +34,26 @@ app.engine('liquid', engine.express());
 app.set('views', './views')
 
 const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story`);
-const storyResponseJSON = await storyResponse.json();
+const {data: storyResponseJSON} = await storyResponse.json();
 
-const buddyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_buddy`);
-const buddyResponseJSON = await buddyResponse.json();
-
+const audioResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_audio`);
+const {data: audioResponseJSON} = await audioResponse.json();
+let audioArr = []
 // Maak een GET route voor de index (meestal doe je dit in de root, als /)
 app.get('/', async function (request, response) {
    // Render index.liquid uit de Views map
    // Geef hier eventueel data aan mee
-
-   response.render('index.liquid', {story: storyResponseJSON.data}) 
+   const foundAudio = storyResponseJSON.map(item => {
+    // console.log(item.audio);
+    if(item.audio.length === 0 || item.audio === undefined) {
+      return
+    }
+    audioArr.push(audioResponseJSON.find(audio => audio.id === item.audio))
+    // return storyResponse.find(story => item.audio === audioResponseJSON.id)
+   })
+  console.log(foundAudio, "found", audioArr);
+  
+   response.render('index.liquid', {story: storyResponseJSON, audio: audioResponseJSON})
 })
 
 app.get('/story', async function (request, response) {
