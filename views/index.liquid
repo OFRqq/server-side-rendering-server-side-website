@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../stylesheet.css">
     <title>Tumi Mundo</title>
 </head>
 
@@ -50,11 +51,11 @@
 
     <main>
         <ul>
-            {% for story in story %}
+            {% for story in customStory %}
             <li>
                     <h2>{{ story.title }}</h2>
                     <p>{{ story.summary }}</p>
-                   <audio controls src="https://fdnd-agency.directus.app/assets/">
+                   <audio controls src="https://fdnd-agency.directus.app/assets/{{ story.audioFile }}">
                     </audio>
                     <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
                 {% endfor %}
