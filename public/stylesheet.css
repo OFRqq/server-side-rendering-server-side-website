@@ -6,16 +6,11 @@
 }
 
 /* CSS RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 
 body {
     /* COLORS */
-    --background-color: #471871;
-    --background-color: #142151;
+    --background-color: linear-gradient(to bottom, #471871, #142151);
     --story-background-color: #FFFFFF;
 
     --story-text-black: #000000;

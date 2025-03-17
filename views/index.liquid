@@ -13,52 +13,55 @@
 
     <h1>All stories</h1>
 
+    <div class="searchbar-container">
     <label>
-        <input type="search" role="searchbox" placeholder="search for stories">
+        <input  class="searchbar" type="search" role="searchbox" placeholder="search for stories">
         <button>[SVG]</button>
     </label>
+    </div>
 
-<button>Animal
-    <la>
-        <li><a href="?filter=animal.6"></a></li>
-        <li><a href="?filter=animal.7"></a></li>
-        <li><a href="?filter=animal.8"></a></li>
-    </la>
-</button>
-<button>Language
-    <la>
-        <li><a href="?filter=language.1"></a></li>
-        <li><a href="?filter=language.2"></a></li>
-        <li><a href="?filter=language.5"></a></li>
-        <li><a href="?filter=language.6"></a></li>
-        <li><a href="?filter=language.7"></a></li>
-    </la>
-</button>
-<button>Season
-    <la>
-        <li><a href=""></a></li>
-        <li><a href=""></a></li>
-        <li><a href=""></a></li>
-    </la>
-</button>
-<button>Sorting
-    <la>
-        <li><a href="?sort=season"></a></li>
-        <li><a href="?sort=animal"></a></li>
-    </la>
-</button>
-   
+    <form class="filtering">
+    <details>Animal
+        <la>
+            <li><a href="?filter=animal.6">6</a></li>
+            <li><a href="?filter=animal.7">7</a></li>
+            <li><a href="?filter=animal.8">8</a></li>
+        </la>
+    </details>
+
+    <details>Language
+        <la>
+            <li><a href="?filter=language.1">1</a></li>
+            <li><a href="?filter=language.2">2</a></li>
+            <li><a href="?filter=language.5">5</a></li>
+            <li><a href="?filter=language.6">6</a></li>
+            <li><a href="?filter=language.7">7</a></li>
+        </la>
+    </details>
+    <details>Season
+        <la>
+            <li><a href="?filter=season"></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+        </la>
+    </details>
+    <details>Sorting
+        <la>
+            <li><a href="?sort=season"></a></li>
+            <li><a href="?sort=animal"></a></li>
+        </la>
+    </details>
+    </form>
 
     <main>
-        <ul>
-            {% for story in customStory %}
-            <li>
-                    <h2>{{ story.title }}</h2>
-                    <p>{{ story.summary }}</p>
-                   <audio controls src="https://fdnd-agency.directus.app/assets/{{ story.audioFile }}">
-                    </audio>
-                    <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
-                {% endfor %}
+        <ul class="stories-container">
+            {% for story in story %}
+            <li class="story-container">
+              <h2>{{ story.title }}</h2>
+              <p>{{ story.summary }}</p>
+                <audio controls src="https://fdnd-agency.directus.app/assets/{{ story.audio[0].audio_file }}"></audio>
+              <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
             </li>
-        </ul>
+            {% endfor %}
+          </ul>
     </main>

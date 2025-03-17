@@ -30,40 +30,23 @@ app.engine("liquid", engine.express());
 // Let op: de browser kan deze bestanden niet rechtstreeks laden (zoals voorheen met HTML bestanden)
 app.set("views", "./views");
 
-const storyResponse = await fetch(
-  `https://fdnd-agency.directus.app/items/tm_story`
-);
-const { data: storyResponseJSON } = await storyResponse.json();
+const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story?fields=*.*`); 
+const storyResponseJSON = await storyResponse.json(); 
 
-const audioResponse = await fetch(
-  `https://fdnd-agency.directus.app/items/tm_audio`
-);
-const { data: audioResponseJSON } = await audioResponse.json();
+const audioResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_audio`);
+const audioResponseJSON = await audioResponse.json();
 
-const audioData = await fetch(
-  `https://fdnd-agency.directus.app/items/tm_story?sort=season&fields=audio.audio_file`
-);
-const { data: audioDataRes } = await audioData.json();
-let customStory = [];
-// Maak een GET route voor de index (meestal doe je dit in de root, als /)
-app.get("/", async function (request, response) {
-  // Combineer de data correct
-  customStory = storyResponseJSON.map((obj, i) => {
-    return {
-      ...obj,
-      audioFile: audioDataRes[i].audio.flatMap((item) => item.audio_file) || [],
-    };
+const buddyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_buddy`); 
+const buddyResponseJSON = await buddyResponse.json();
+
+ 
+app.get('/', async function (request, response) { 
+ 
+  response.render('index.liquid', {
+    story: storyResponseJSON.data,
+    audio: audioResponseJSON.data,
   });
-
-  console.log(customStory);
-
-  // Render de pagina met de correcte data
-  response.render("index.liquid", {
-    story: storyResponseJSON,
-    audioJSON: audioResponseJSON,
-    customStory
-  });
-});
+})
 
 app.get("/story", async function (request, response) {
   // Render index.liquid uit de Views map

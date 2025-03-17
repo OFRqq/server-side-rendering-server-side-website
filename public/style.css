@@ -1,8 +1,47 @@
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 @media only screen and (min-width: 0px) {
 
     html {
         font-family: Poppins;
+
+        body {
+            background: var(--background-color);
+
+            h1 {
+                text-align: center;
+            }
+
+            .searchbar-container {
+                text-align: center;
+
+                .searchbar {
+                    padding-left:40px;
+                    padding-right:40px;
+                }
+            }
+
+            .filtering { 
+                display: flex;
+                justify-content: center;
+                gap:4vw;
+
+                details {
+                    background-color: var(--button-popup-color);
+                }
+            }
+            .stories-container {
+
+                .story-container {
+                    padding:10px;
+                    margin: 20px;
+                    background-color:var(--story-background-color);
+                }
+            }
+        }
     }
 }
